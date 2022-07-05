@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from st_aggrid import AgGrid
+
 import re
 
 
@@ -94,14 +94,9 @@ if result_dict:
     result_dict['indexs'] = text
     df_1 = pd.read_csv('test.csv')
     df = df_1.append(result_dict, ignore_index=True)
-    # df_2 = pd.DataFrame(result_dict, index=[text])
-    # df = pd.concat([df_1, df_2])
     df = df.astype(str)
     style = {text: [{'selector' : '', 'props' : [('border','2px solid green')]}]}
     show_df = df.set_index(pd.Index(df['indexs'].values)).iloc[-3:].drop('indexs', axis=1)
-    # show_df.style.apply(highlight_survived, axis=1)
-    # AgGrid(show_df.transpose(),)
-    # st.table(show_df.transpose().style.apply(highlight_survived, subset=[text]))
     st.markdown(show_df.transpose().style.set_table_styles(style).to_html(), unsafe_allow_html=True)
     df.to_csv('test.csv', index=False)
 
