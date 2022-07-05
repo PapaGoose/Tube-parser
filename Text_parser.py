@@ -54,7 +54,9 @@ flag = False
 text = ""
 text = st.text_input("", value="", placeholder='Text')
 result_dict = {}
-
+if text == 'clear_file':
+    dfdf = pd.DataFrame(columns=['ГОСТ','Диаметр (мм)','Толщина стенки (мм)','Тип трубы','Тип резьбы','Группа прочности','Марка стали','Класс прочности','Изоляция','indexs'])
+    dfdf.to_csv('test.csv', index=False)
 if text:
     for key, value in regex_dict.items():
         result = re.findall(value, text)
