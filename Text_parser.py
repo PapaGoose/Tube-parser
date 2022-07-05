@@ -54,10 +54,8 @@ flag = False
 text = ""
 text = st.text_input("", value="", placeholder='Text')
 result_dict = {}
-if text == 'clear_file':
-    dfdf = pd.DataFrame(columns=['ГОСТ','Диаметр (мм)','Толщина стенки (мм)','Тип трубы','Тип резьбы','Группа прочности','Марка стали','Класс прочности','Изоляция','indexs'])
-    dfdf.to_csv('test.csv', index=False)
-if text:
+
+if text and text != 'clear_file':
     for key, value in regex_dict.items():
         result = re.findall(value, text)
 
@@ -101,4 +99,7 @@ if result_dict:
     show_df = df.set_index(pd.Index(df['indexs'].values)).iloc[-3:].drop('indexs', axis=1)
     st.markdown(show_df.transpose().style.set_table_styles(style).to_html(), unsafe_allow_html=True)
     df.to_csv('test.csv', index=False)
-
+    
+if text == 'clear_file':
+    df = pd.read_csv('test.csv')
+    df.iloc[0:0].to_csv('test.csv', index=False)
