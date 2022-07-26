@@ -35,7 +35,7 @@ hide_st_style = """
             </style>
             """
 st.markdown(hide_st_style, unsafe_allow_html=True)
-local_css("text_parser/test.css")
+local_css("test.css")
 # local_html("input.html")
 col1, col2, col3 = st.columns(3)
 
@@ -43,7 +43,7 @@ with col1:
     st.write(' ')
 
 with col2:
-    st.image('text_parser/logo.png')
+    st.image('logo.png')
 
 with col3:
     st.write(' ')
@@ -94,7 +94,7 @@ if text:
 
 if result_dict: 
     result_dict['indexs'] = text
-    df_1 = pd.read_csv('text_parser/test.csv')
+    df_1 = pd.read_csv('test.csv')
     df = df_1.append(result_dict, ignore_index=True)
 
     df = df.astype(str)
@@ -102,11 +102,11 @@ if result_dict:
     show_df = df.set_index(pd.Index(df['indexs'].values)).iloc[-3:].drop('indexs', axis=1)
 
     if st.button('Очистить таблицу', key='1'):
-        df = pd.read_csv('text_parser/test.csv')
-        df.iloc[0:0].to_csv('text_parser/test.csv', index=False)
+        df = pd.read_csv('test.csv')
+        df.iloc[0:0].to_csv('test.csv', index=False)
     else:
         st.markdown(show_df.transpose().style.set_table_styles(style).to_html(), unsafe_allow_html=True)
-        df.to_csv('text_parser/test.csv', index=False)
+        df.to_csv('test.csv', index=False)
     st.markdown('')
 
     
